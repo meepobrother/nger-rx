@@ -57,7 +57,7 @@ function resubscribeInCaseOfError<T extends Action>(
 ): Observable<T> {
     return observable$.pipe(
         catchError(error => {
-            if (errorHandler) errorHandler.handleError(error);
+            if (errorHandler) errorHandler.handleError(error, undefined as any);
             // Return observable that produces this particular effect
             return resubscribeInCaseOfError(observable$, errorHandler);
         })

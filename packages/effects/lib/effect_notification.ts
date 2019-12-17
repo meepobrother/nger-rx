@@ -24,7 +24,8 @@ export function reportInvalidActions(
                     `Effect ${getEffectName(
                         output
                     )} dispatched an invalid action: ${stringify(action)}`
-                )
+                ),
+                undefined as any
             );
         }
     }
