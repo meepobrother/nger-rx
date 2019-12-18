@@ -9,7 +9,6 @@ import {
     InjectFlags,
     Type
 } from '@nger/core';
-import { getINgerDecorator } from '@nger/decorator';
 import {
     Action,
     ActionReducer,
@@ -107,11 +106,11 @@ export interface RootStoreConfig<T, V extends Action = Action>
 @NgModule({})
 export class StoreModule {
     static forRoot<T, V extends Action = Action>(
-        reducers: ActionReducerMap<T, V> | InjectionToken<ActionReducerMap<T, V>> | Type<any>[],
+        reducers: ActionReducerMap<T, V> | InjectionToken<ActionReducerMap<T, V>>,
         config?: RootStoreConfig<T, V>
     ): ModuleWithProviders<StoreRootModule>;
     static forRoot(
-        reducers: ActionReducerMap<any, any> | InjectionToken<ActionReducerMap<any, any>> | Type<any>[],
+        reducers: ActionReducerMap<any, any> | InjectionToken<ActionReducerMap<any, any>>,
         config: RootStoreConfig<any, any> = {}
     ): ModuleWithProviders<StoreRootModule> {
         return {
@@ -170,12 +169,12 @@ export class StoreModule {
 
     static forFeature<T, V extends Action = Action>(
         featureName: string,
-        reducers: ActionReducerMap<T, V> | InjectionToken<ActionReducerMap<T, V>> | Type<any>,
+        reducers: ActionReducerMap<T, V> | InjectionToken<ActionReducerMap<T, V>>,
         config?: StoreConfig<T, V> | InjectionToken<StoreConfig<T, V>>
     ): ModuleWithProviders<StoreFeatureModule>;
     static forFeature<T, V extends Action = Action>(
         featureName: string,
-        reducer: ActionReducer<T, V> | InjectionToken<ActionReducer<T, V>> | Type<any>,
+        reducer: ActionReducer<T, V> | InjectionToken<ActionReducer<T, V>>,
         config?: StoreConfig<T, V> | InjectionToken<StoreConfig<T, V>>
     ): ModuleWithProviders<StoreFeatureModule>;
     static forFeature(
@@ -244,27 +243,8 @@ export class StoreModule {
 
 export function _createStoreReducers(
     injector: Injector,
-    reducers: ActionReducerMap<any, any> | InjectionToken<ActionReducerMap<any, any>> | Type<any>[]
+    reducers: ActionReducerMap<any, any> | InjectionToken<ActionReducerMap<any, any>>
 ) {
-    if (Array.isArray(reducers)) {
-        let obj = {};
-        reducers.map(t => {
-            const nger = getINgerDecorator(t);
-            nger && nger.classes.map(it => {
-                const handler = injector.get<any>(it.metadataKey);
-                if (handler) {
-                    const handlers = handler(t, injector, it);
-                    if (handlers) {
-                        obj = {
-                            ...obj,
-                            ...handlers
-                        }
-                    }
-                }
-            })
-        })
-        return obj;
-    }
     return reducers instanceof InjectionToken ? injector.get(reducers) : reducers;
 }
 
@@ -294,18 +274,6 @@ export function _createFeatureReducers(
     reducerCollection: ActionReducerMap<any, any>[]
 ) {
     const reducers = reducerCollection.map(reducer => {
-        if (typeof reducer === 'function') {
-            const nger = getINgerDecorator(reducer);
-            nger && nger.classes.map(it => {
-                const handler = injector.get<any>(it.metadataKey);
-                if (handler) {
-                    const handlers = handler(reducer, injector, it);
-                    if (handlers) {
-                        reducer = handlers
-                    }
-                }
-            })
-        }
         return reducer instanceof InjectionToken ? injector.get(reducer) : reducer;
     });
     return reducers;

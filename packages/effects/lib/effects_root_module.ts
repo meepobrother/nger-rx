@@ -1,10 +1,7 @@
-import { NgModule, Inject, Optional } from '@nger/core';
+import { NgModule, Inject } from '@nger/core';
 import {
     createAction,
-    StoreModule,
-    Store,
-    StoreRootModule,
-    StoreFeatureModule,
+    Store
 } from '@nger/rx.store';
 import { EffectsRunner } from './effects_runner';
 import { EffectSources } from './effect_sources';
@@ -19,19 +16,12 @@ export class EffectsRootModule {
         private sources: EffectSources,
         runner: EffectsRunner,
         store: Store<any>,
-        @Inject({ token: ROOT_EFFECTS }) rootEffects: any[],
-        @Optional() storeRootModule: StoreRootModule,
-        @Optional() storeFeatureModule: StoreFeatureModule,
-        @Optional()
-        @Inject({ token: _ROOT_EFFECTS_GUARD })
-        guard: any
+        @Inject({ token: ROOT_EFFECTS }) rootEffects: any[]
     ) {
         runner.start();
-
         rootEffects.forEach(effectSourceInstance =>
             sources.addEffects(effectSourceInstance)
         );
-
         store.dispatch({ type: ROOT_EFFECTS_INIT });
     }
 

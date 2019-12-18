@@ -25,10 +25,10 @@
   dependencies:
     "@nger/decorator" "^1.1.6"
 
-"@nger/rx.store@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@nger/rx.store/-/rx.store-1.0.2.tgz#e270885d553cfa324eacb3a7aaddb99a141242fd"
-  integrity sha512-5Se3wooFmSeanLK+0dG+ItLOTK5D5YxOc5LHzxQyHX6LT6R8OAPpXNNCHidEg+QwxEUk7jCNrUuZ4YIMz6i/ag==
+"@nger/rx.store@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@nger/rx.store/-/rx.store-1.0.4.tgz#000608e796be40ea775a036be6ac33f2f7d86ad8"
+  integrity sha512-lvHs3cKw5Ydsi+JILwJ+5NN+vIwWrcb+BnSFiohuK6BgcNkbct/lGQa+DBgsvoBkIaKptw20RcWI8P09fcXDdQ==
   dependencies:
     "@nger/core" "^1.7.9"
     rxjs "^6.5.3"

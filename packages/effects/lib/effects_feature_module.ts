@@ -1,5 +1,4 @@
-import { NgModule, Inject, Optional } from '@nger/core';
-import { StoreRootModule, StoreFeatureModule } from '@nger/rx.store';
+import { NgModule, Inject } from '@nger/core';
 import { EffectsRootModule } from './effects_root_module';
 import { FEATURE_EFFECTS } from './tokens';
 
@@ -7,9 +6,7 @@ import { FEATURE_EFFECTS } from './tokens';
 export class EffectsFeatureModule {
     constructor(
         root: EffectsRootModule,
-        @Inject({ token: FEATURE_EFFECTS }) effectSourceGroups: any[][],
-        @Optional() storeRootModule: StoreRootModule,
-        @Optional() storeFeatureModule: StoreFeatureModule
+        @Inject({ token: FEATURE_EFFECTS }) effectSourceGroups: any[][]
     ) {
         effectSourceGroups.forEach(group =>
             group.forEach(effectSourceInstance =>

@@ -748,26 +748,28 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@nger/core@^1.2.5":
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/@nger/core/-/core-1.2.5.tgz#ec0edf6622dae626d26125ccf6e09328b4827c24"
-  integrity sha512-jAY5IEP2sUbogy2Cwi35iMmjwzTVu3yTbQ9f+FBcf+khVIJq2PRxRmLTsRlHX5IjvtdrnD3CknAg67OSM60pCQ==
+"@nger/core@^1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@nger/core/-/core-1.8.0.tgz#85df365c4b76c920ba9d35c5ac52d1965568251f"
+  integrity sha512-e0CRlVw4AldHli42XB6iCkC7F5nFs8mUc1X2/yriFHFiWUKQ78iD8VgWbeDA5OzVbkcsiROZgFFfzMwiqV/dzg==
   dependencies:
-    "@nger/di" "^1.2.1"
+    "@nger/decorator" "^1.1.7"
+    "@nger/di" "^1.4.0"
+    rxjs "^6.5.3"
 
-"@nger/decorator@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@nger/decorator/-/decorator-1.1.1.tgz#dd148ec7f452c9d342bfda058aaae83b5763dfe6"
-  integrity sha512-r75jHtunMyNeOaykCkqXfyAuGeBZCVojk72NPsRK+mfIg5wIra/cOcEqFy+KA/hzsoQtujwEjG8iuYgGGihX0Q==
+"@nger/decorator@^1.1.6", "@nger/decorator@^1.1.7":
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/@nger/decorator/-/decorator-1.1.7.tgz#99ef5a45bcb833af3e9061bd1aa1e16115aab899"
+  integrity sha512-jlqQVb3RcKapd//dNvaSTwbhCI2BAouh/PyI7ze+yMOP2PX24BwdnUnX535Iyt6wCks4Q1Vx/nSpUu5kiw/L4g==
   dependencies:
     reflect-metadata "^0.1.13"
 
-"@nger/di@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@nger/di/-/di-1.2.1.tgz#31a5eba5f9a39e966b67935fe8f660877e4589a5"
-  integrity sha512-qraekwGfIYmCRI4rahheDJ7vhzx3Oz09Y9W9IVTdV8Uue/kHzQrdjzwNu/6q01JL+Qp80BsbEbHliFOYMTA6jA==
+"@nger/di@^1.4.0", "@nger/di@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@nger/di/-/di-1.4.1.tgz#737681b20613404eb734ed6e0fb77aaca8aabfd1"
+  integrity sha512-Np6jY2LEXey+26BtZwKFHpLie0NW1GRGK7cZz2bovr84gWOwCgP1T0k7HuVi82uU6c/DP/Fr3Yili2bhc68vHA==
   dependencies:
-    "@nger/decorator" "^1.1.1"
+    "@nger/decorator" "^1.1.6"
 
 "@nodelib/fs.stat@^1.1.2":
   version "1.1.3"
@@ -4047,7 +4049,7 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   dependencies:
     aproba "^1.1.1"
 
-rxjs@^6.4.0:
+rxjs@^6.4.0, rxjs@^6.5.3:
   version "6.5.3"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-6.5.3.tgz#510e26317f4db91a7eb1de77d9dd9ba0a4899a3a"
   integrity sha512-wuYsAYYFdWTAnAaPoKGNhfpWwKZbJW+HgAJ+mImp+Epl7BG8oNWBCTyRM8gba9k4lk8BgWdoYm21Mo/RYhhbgA==
