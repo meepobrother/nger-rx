@@ -2,59 +2,59 @@ import { InjectionToken } from '@nger/core';
 import { RuntimeChecks, MetaReducer } from './models';
 
 export const _ROOT_STORE_GUARD = new InjectionToken<void>(
-    '@ngrx/store Internal Root Guard'
+  '@ngrx/store Internal Root Guard'
 );
 export const _INITIAL_STATE = new InjectionToken(
-    '@ngrx/store Internal Initial State'
+  '@ngrx/store Internal Initial State'
 );
 export const INITIAL_STATE = new InjectionToken('@ngrx/store Initial State');
 export const REDUCER_FACTORY = new InjectionToken(
-    '@ngrx/store Reducer Factory'
+  '@ngrx/store Reducer Factory'
 );
 export const _REDUCER_FACTORY = new InjectionToken(
-    '@ngrx/store Internal Reducer Factory Provider'
+  '@ngrx/store Internal Reducer Factory Provider'
 );
 export const INITIAL_REDUCERS = new InjectionToken(
-    '@ngrx/store Initial Reducers'
+  '@ngrx/store Initial Reducers'
 );
 export const _INITIAL_REDUCERS = new InjectionToken(
-    '@ngrx/store Internal Initial Reducers'
+  '@ngrx/store Internal Initial Reducers'
 );
 export const STORE_FEATURES = new InjectionToken('@ngrx/store Store Features');
 export const _STORE_REDUCERS = new InjectionToken(
-    '@ngrx/store Internal Store Reducers'
+  '@ngrx/store Internal Store Reducers'
 );
 export const _FEATURE_REDUCERS = new InjectionToken(
-    '@ngrx/store Internal Feature Reducers'
+  '@ngrx/store Internal Feature Reducers'
 );
 
 export const _FEATURE_CONFIGS = new InjectionToken(
-    '@ngrx/store Internal Feature Configs'
+  '@ngrx/store Internal Feature Configs'
 );
 
 export const _STORE_FEATURES = new InjectionToken(
-    '@ngrx/store Internal Store Features'
+  '@ngrx/store Internal Store Features'
 );
 
 export const _FEATURE_REDUCERS_TOKEN = new InjectionToken(
-    '@ngrx/store Internal Feature Reducers Token'
+  '@ngrx/store Internal Feature Reducers Token'
 );
 export const FEATURE_REDUCERS = new InjectionToken(
-    '@ngrx/store Feature Reducers'
+  '@ngrx/store Feature Reducers'
 );
 
 /**
  * User-defined meta reducers from StoreModule.forRoot()
  */
 export const USER_PROVIDED_META_REDUCERS = new InjectionToken<MetaReducer[]>(
-    '@ngrx/store User Provided Meta Reducers'
+  '@ngrx/store User Provided Meta Reducers'
 );
 
 /**
  * Meta reducers defined either internally by @ngrx/store or by library authors
  */
 export const META_REDUCERS = new InjectionToken<MetaReducer[]>(
-    '@ngrx/store Meta Reducers'
+  '@ngrx/store Meta Reducers'
 );
 
 /**
@@ -62,7 +62,7 @@ export const META_REDUCERS = new InjectionToken<MetaReducer[]>(
  * injection token
  */
 export const _RESOLVED_META_REDUCERS = new InjectionToken<MetaReducer>(
-    '@ngrx/store Internal Resolved Meta Reducers'
+  '@ngrx/store Internal Resolved Meta Reducers'
 );
 
 /**
@@ -70,19 +70,19 @@ export const _RESOLVED_META_REDUCERS = new InjectionToken<MetaReducer>(
  * Defaults to `_USER_RUNTIME_CHECKS`
  */
 export const USER_RUNTIME_CHECKS = new InjectionToken<RuntimeChecks>(
-    '@ngrx/store User Runtime Checks Config'
+  '@ngrx/store User Runtime Checks Config'
 );
 
 /**
  * Runtime checks defined by the user via forRoot()
  */
 export const _USER_RUNTIME_CHECKS = new InjectionToken<RuntimeChecks>(
-    '@ngrx/store Internal User Runtime Checks Config'
+  '@ngrx/store Internal User Runtime Checks Config'
 );
 
 /**
  * Runtime checks currently in use
  */
 export const _ACTIVE_RUNTIME_CHECKS = new InjectionToken<RuntimeChecks>(
-    '@ngrx/store Internal Runtime Checks'
+  '@ngrx/store Internal Runtime Checks'
 );

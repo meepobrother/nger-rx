@@ -3,57 +3,56 @@ import { Action } from '@nger/rx.store';
 import { Notification, Observable } from 'rxjs';
 
 export interface EffectNotification {
-    effect: Observable<any> | (() => Observable<any>);
-    propertyName: PropertyKey;
-    sourceName: string;
-    sourceInstance: any;
-    notification: Notification<Action | null | undefined>;
+  effect: Observable<any> | (() => Observable<any>);
+  propertyName: PropertyKey;
+  sourceName: string;
+  sourceInstance: any;
+  notification: Notification<Action | null | undefined>;
 }
 
 export function reportInvalidActions(
-    output: EffectNotification,
-    reporter: ErrorHandler
+  output: EffectNotification,
+  reporter: ErrorHandler
 ) {
-    if (output.notification.kind === 'N') {
-        const action = output.notification.value;
-        const isInvalidAction = !isAction(action);
+  if (output.notification.kind === 'N') {
+    const action = output.notification.value;
+    const isInvalidAction = !isAction(action);
 
-        if (isInvalidAction) {
-            reporter.handleError(
-                new Error(
-                    `Effect ${getEffectName(
-                        output
-                    )} dispatched an invalid action: ${stringify(action)}`
-                ),
-                undefined as any
-            );
-        }
+    if (isInvalidAction) {
+      reporter.handleError(
+        new Error(
+          `Effect ${getEffectName(
+            output
+          )} dispatched an invalid action: ${stringify(action)}`
+        )
+      );
     }
+  }
 }
 
 function isAction(action: any): action is Action {
-    return (
-        typeof action !== 'function' &&
-        action &&
-        action.type &&
-        typeof action.type === 'string'
-    );
+  return (
+    typeof action !== 'function' &&
+    action &&
+    action.type &&
+    typeof action.type === 'string'
+  );
 }
 
 function getEffectName({
-    propertyName,
-    sourceInstance,
-    sourceName,
+  propertyName,
+  sourceInstance,
+  sourceName,
 }: EffectNotification) {
-    const isMethod = typeof sourceInstance[propertyName] === 'function';
+  const isMethod = typeof sourceInstance[propertyName] === 'function';
 
-    return `"${sourceName}.${String(propertyName)}${isMethod ? '()' : ''}"`;
+  return `"${sourceName}.${String(propertyName)}${isMethod ? '()' : ''}"`;
 }
 
 function stringify(action: Action | null | undefined) {
-    try {
-        return JSON.stringify(action);
-    } catch {
-        return action;
-    }
+  try {
+    return JSON.stringify(action);
+  } catch {
+    return action;
+  }
 }
