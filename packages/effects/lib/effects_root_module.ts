@@ -1,10 +1,10 @@
 import { NgModule, Inject, Optional } from '@nger/core';
 import {
-  createAction,
-  StoreModule,
-  Store,
-  StoreRootModule,
-  StoreFeatureModule,
+    createAction,
+    StoreModule,
+    Store,
+    StoreRootModule,
+    StoreFeatureModule,
 } from '@nger/rx.store';
 import { EffectsRunner } from './effects_runner';
 import { EffectSources } from './effect_sources';
@@ -15,27 +15,27 @@ export const rootEffectsInit = createAction(ROOT_EFFECTS_INIT);
 
 @NgModule({})
 export class EffectsRootModule {
-  constructor(
-    private sources: EffectSources,
-    runner: EffectsRunner,
-    store: Store<any>,
-    @Inject(ROOT_EFFECTS) rootEffects: any[],
-    @Optional() storeRootModule: StoreRootModule,
-    @Optional() storeFeatureModule: StoreFeatureModule,
-    @Optional()
-    @Inject(_ROOT_EFFECTS_GUARD)
-    guard: any
-  ) {
-    runner.start();
+    constructor(
+        private sources: EffectSources,
+        runner: EffectsRunner,
+        store: Store<any>,
+        @Inject(ROOT_EFFECTS) rootEffects: any[],
+        @Optional() storeRootModule: StoreRootModule,
+        @Optional() storeFeatureModule: StoreFeatureModule,
+        @Optional()
+        @Inject(_ROOT_EFFECTS_GUARD)
+        guard: any
+    ) {
+        runner.start();
 
-    rootEffects.forEach(effectSourceInstance =>
-      sources.addEffects(effectSourceInstance)
-    );
+        rootEffects.forEach(effectSourceInstance =>
+            sources.addEffects(effectSourceInstance)
+        );
 
-    store.dispatch({ type: ROOT_EFFECTS_INIT });
-  }
+        store.dispatch({ type: ROOT_EFFECTS_INIT });
+    }
 
-  addEffects(effectSourceInstance: any) {
-    this.sources.addEffects(effectSourceInstance);
-  }
+    addEffects(effectSourceInstance: any) {
+        this.sources.addEffects(effectSourceInstance);
+    }
 }

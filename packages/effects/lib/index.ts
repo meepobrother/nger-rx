@@ -10,13 +10,13 @@ export { EffectSources } from './effect_sources';
 export { EffectNotification } from './effect_notification';
 export { EffectsFeatureModule } from './effects_feature_module';
 export {
-  ROOT_EFFECTS_INIT,
-  rootEffectsInit,
-  EffectsRootModule,
+    ROOT_EFFECTS_INIT,
+    rootEffectsInit,
+    EffectsRootModule,
 } from './effects_root_module';
 export { act } from './act';
 export {
-  OnIdentifyEffects,
-  OnRunEffects,
-  OnInitEffects,
+    OnIdentifyEffects,
+    OnRunEffects,
+    OnInitEffects,
 } from './lifecycle_hooks';

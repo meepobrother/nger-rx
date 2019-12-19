@@ -3,26 +3,26 @@ import { getCreateEffectMetadata } from './effect_creator';
 import { getEffectDecoratorMetadata } from './effect_decorator';
 
 export function getEffectsMetadata<T>(instance: T): EffectsMetadata<T> {
-  return getSourceMetadata(instance).reduce(
-    (
-      acc: EffectsMetadata<T>,
-      { propertyName, dispatch, resubscribeOnError }
-    ) => {
-      acc[propertyName] = { dispatch, resubscribeOnError };
-      return acc;
-    },
-    {}
-  );
+    return getSourceMetadata(instance).reduce(
+        (
+            acc: EffectsMetadata<T>,
+            { propertyName, dispatch, resubscribeOnError }
+        ) => {
+            acc[propertyName] = { dispatch, resubscribeOnError };
+            return acc;
+        },
+        {}
+    );
 }
 
 export function getSourceMetadata<T>(instance: T): EffectMetadata<T>[] {
-  const effects: Array<(instance: T) => EffectMetadata<T>[]> = [
-    getEffectDecoratorMetadata,
-    getCreateEffectMetadata,
-  ];
+    const effects: Array<(instance: T) => EffectMetadata<T>[]> = [
+        getEffectDecoratorMetadata,
+        getCreateEffectMetadata,
+    ];
 
-  return effects.reduce<EffectMetadata<T>[]>(
-    (sources, source) => sources.concat(source(instance)),
-    []
-  );
+    return effects.reduce<EffectMetadata<T>[]>(
+        (sources, source) => sources.concat(source(instance)),
+        []
+    );
 }
