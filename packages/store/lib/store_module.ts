@@ -37,6 +37,7 @@ import {
     USER_PROVIDED_META_REDUCERS,
     _RESOLVED_META_REDUCERS,
     _ROOT_STORE_GUARD,
+    REDUCERS,
 } from './tokens';
 import { ACTIONS_SUBJECT_PROVIDERS, ActionsSubject } from './actions_subject';
 import {
@@ -112,13 +113,9 @@ export interface RootStoreConfig<T, V extends Action = Action>
 @NgModule({})
 export class StoreModule {
     static forRoot<T, V extends Action = Action>(
-        reducers: ActionReducerMap<T, V> | InjectionToken<ActionReducerMap<T, V>>,
         config?: RootStoreConfig<T, V>
     ): ModuleWithProviders<StoreRootModule>;
     static forRoot(
-        reducers:
-            | ActionReducerMap<any, any>
-            | InjectionToken<ActionReducerMap<any, any>>,
         config: RootStoreConfig<any, any> = {}
     ): ModuleWithProviders<StoreRootModule> {
         return {
@@ -135,11 +132,23 @@ export class StoreModule {
                     useFactory: _initialStateFactory,
                     deps: [_INITIAL_STATE],
                 },
-                { provide: _INITIAL_REDUCERS, useValue: reducers },
+                {
+                    provide: _INITIAL_REDUCERS,
+                    useFactory: (injector: Injector) => {
+                        const _reducers = injector.get(REDUCERS, [])
+                        const obj: any = {};
+                        _reducers.map(it => {
+                            Object.keys(it).map(key => {
+                                Reflect.set(obj, key, Reflect.get(it, key))
+                            })
+                        });
+                        return obj;
+                    },
+                    deps: [Injector]
+                },
                 {
                     provide: _STORE_REDUCERS,
-                    useExisting:
-                        reducers instanceof InjectionToken ? reducers : _INITIAL_REDUCERS,
+                    useExisting: _INITIAL_REDUCERS,
                 },
                 {
                     provide: INITIAL_REDUCERS,

@@ -1,10 +1,11 @@
-import { StaticProvider, Injector, Type, setStaticProviderWithRoot } from "@nger/core";
+import { StaticProvider, Injector, Type, setStaticProviderWithRoot, InjectionToken } from "@nger/core";
 import { IMethodDecorator, IClassDecorator, getINgerDecorator } from '@nger/decorator';
 import { ReducerOptions, CaseMetadataKey, ReducerMetadataKey } from "../decorators";
 import { createReducer, on } from "../reducer_creator";
 import { REDUCERS } from "../tokens";
+import { State } from "../state";
 export interface ReducerCaseHandler<T = any, O = any> {
-    (instance: T, method: IMethodDecorator<T, O>): any;
+    (instance: T, method: IMethodDecorator<T, O>, injector: Injector): any;
 }
 export interface ReducerHandler<T = any, O = any> {
     (type: Type<any>, injector: Injector, decorator: IClassDecorator<T, O>): any;
@@ -21,7 +22,7 @@ const reducerHandler = (old: any, decorator: IClassDecorator<any, ReducerOptions
             if (method.metadataKey) {
                 const handler = injector.get<ReducerCaseHandler>(method.metadataKey)
                 if (handler) {
-                    const res = handler(instance, method);
+                    const res = handler(instance, method, injector);
                     if (res) handlers.push(res)
                 }
             }
@@ -33,12 +34,24 @@ const reducerHandler = (old: any, decorator: IClassDecorator<any, ReducerOptions
         }])
     }
 }
-export const caseHandler: ReducerCaseHandler = (instance: any, method: IMethodDecorator<any, any>) => {
+export const CURRENT_STATE = new InjectionToken(`CURRENT_STATE`)
+export const CURRENT_ACTION = new InjectionToken(`CURRENT_ACTION`)
+
+export const caseHandler: ReducerCaseHandler = (instance: any, method: IMethodDecorator<any, any>, injector: Injector) => {
     const options = method.options;
     if (options) {
-        const mth = Reflect.get(instance, method.property);
+        const mth = instance[method.property];
         if (mth) {
-            return on(options, mth.bind(instance))
+            return on(options, (state, action) => {
+                injector.setStatic([{
+                    provide: CURRENT_STATE,
+                    useValue: state
+                },{
+                    provide: CURRENT_ACTION,
+                    useValue: action
+                }])
+                return mth(state, action)
+            })
         }
     }
 }

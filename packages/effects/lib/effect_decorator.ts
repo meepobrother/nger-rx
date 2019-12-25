@@ -1,38 +1,38 @@
-import { compose } from '@nger/rx.store';
+import { compose } from '@nger/rx-store';
 
 import {
-    DEFAULT_EFFECT_CONFIG,
-    EffectConfig,
-    EffectMetadata,
-    EffectPropertyKey,
+  DEFAULT_EFFECT_CONFIG,
+  EffectConfig,
+  EffectMetadata,
+  EffectPropertyKey,
 } from './models';
 import { getSourceForInstance } from './utils';
 
 const METADATA_KEY = '__@ngrx/effects__';
 
 export function Effect(config: EffectConfig = {}) {
-    return function <T extends Object, K extends EffectPropertyKey<T>>(
-        target: T,
-        propertyName: K
-    ) {
-        const metadata: EffectMetadata<T> = {
-            ...DEFAULT_EFFECT_CONFIG,
-            ...config, // Overrides any defaults if values are provided
-            propertyName,
-        };
-        addEffectMetadataEntry<T>(target, metadata);
+  return function<T extends Object, K extends EffectPropertyKey<T>>(
+    target: T,
+    propertyName: K
+  ) {
+    const metadata: EffectMetadata<T> = {
+      ...DEFAULT_EFFECT_CONFIG,
+      ...config, // Overrides any defaults if values are provided
+      propertyName,
     };
+    addEffectMetadataEntry<T>(target, metadata);
+  };
 }
 
 export function getEffectDecoratorMetadata<T>(
-    instance: T
+  instance: T
 ): EffectMetadata<T>[] {
-    const effectsDecorators: EffectMetadata<T>[] = compose(
-        getEffectMetadataEntries,
-        getSourceForInstance
-    )(instance);
+  const effectsDecorators: EffectMetadata<T>[] = compose(
+    getEffectMetadataEntries,
+    getSourceForInstance
+  )(instance);
 
-    return effectsDecorators;
+  return effectsDecorators;
 }
 
 /**
@@ -40,33 +40,33 @@ export function getEffectDecoratorMetadata<T>(
  * constructor
  */
 function hasMetadataEntries<T extends Object>(
-    sourceProto: T
+  sourceProto: T
 ): sourceProto is typeof sourceProto & {
-    constructor: typeof sourceProto.constructor & {
-        [METADATA_KEY]: EffectMetadata<T>[];
-    };
+  constructor: typeof sourceProto.constructor & {
+    [METADATA_KEY]: EffectMetadata<T>[];
+  };
 } {
-    return sourceProto.constructor.hasOwnProperty(METADATA_KEY);
+  return sourceProto.constructor.hasOwnProperty(METADATA_KEY);
 }
 
 /** Add Effect Metadata to the Effect Class constructor under specific key */
 function addEffectMetadataEntry<T extends object>(
-    sourceProto: T,
-    metadata: EffectMetadata<T>
+  sourceProto: T,
+  metadata: EffectMetadata<T>
 ) {
-    if (hasMetadataEntries(sourceProto)) {
-        sourceProto.constructor[METADATA_KEY].push(metadata);
-    } else {
-        Object.defineProperty(sourceProto.constructor, METADATA_KEY, {
-            value: [metadata],
-        });
-    }
+  if (hasMetadataEntries(sourceProto)) {
+    sourceProto.constructor[METADATA_KEY].push(metadata);
+  } else {
+    Object.defineProperty(sourceProto.constructor, METADATA_KEY, {
+      value: [metadata],
+    });
+  }
 }
 
 function getEffectMetadataEntries<T extends object>(
-    sourceProto: T
+  sourceProto: T
 ): EffectMetadata<T>[] {
-    return hasMetadataEntries(sourceProto)
-        ? sourceProto.constructor[METADATA_KEY]
-        : [];
+  return hasMetadataEntries(sourceProto)
+    ? sourceProto.constructor[METADATA_KEY]
+    : [];
 }

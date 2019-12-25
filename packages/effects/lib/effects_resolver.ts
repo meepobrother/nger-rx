@@ -1,4 +1,4 @@
-import { Action } from '@nger/rx.store';
+import { Action } from '@nger/rx-store';
 import { merge, Notification, Observable } from 'rxjs';
 import { ignoreElements, map, materialize, catchError } from 'rxjs/operators';
 
@@ -8,58 +8,58 @@ import { getSourceForInstance } from './utils';
 import { ErrorHandler } from '@nger/core';
 
 export function mergeEffects(
-    sourceInstance: any,
-    errorHandler?: ErrorHandler
+  sourceInstance: any,
+  errorHandler?: ErrorHandler
 ): Observable<EffectNotification> {
-    const sourceName = getSourceForInstance(sourceInstance).constructor.name;
+  const sourceName = getSourceForInstance(sourceInstance).constructor.name;
 
-    const observables$: Observable<any>[] = getSourceMetadata(sourceInstance).map(
-        ({
+  const observables$: Observable<any>[] = getSourceMetadata(sourceInstance).map(
+    ({
+      propertyName,
+      dispatch,
+      resubscribeOnError,
+    }): Observable<EffectNotification> => {
+      const observable$: Observable<any> =
+        typeof sourceInstance[propertyName] === 'function'
+          ? sourceInstance[propertyName]()
+          : sourceInstance[propertyName];
+
+      const resubscribable$ = resubscribeOnError
+        ? resubscribeInCaseOfError(observable$, errorHandler)
+        : observable$;
+
+      if (dispatch === false) {
+        return resubscribable$.pipe(ignoreElements());
+      }
+
+      const materialized$ = resubscribable$.pipe(materialize());
+
+      return materialized$.pipe(
+        map(
+          (notification: Notification<Action>): EffectNotification => ({
+            effect: sourceInstance[propertyName],
+            notification,
             propertyName,
-            dispatch,
-            resubscribeOnError,
-        }): Observable<EffectNotification> => {
-            const observable$: Observable<any> =
-                typeof sourceInstance[propertyName] === 'function'
-                    ? sourceInstance[propertyName]()
-                    : sourceInstance[propertyName];
+            sourceName,
+            sourceInstance,
+          })
+        )
+      );
+    }
+  );
 
-            const resubscribable$ = resubscribeOnError
-                ? resubscribeInCaseOfError(observable$, errorHandler)
-                : observable$;
-
-            if (dispatch === false) {
-                return resubscribable$.pipe(ignoreElements());
-            }
-
-            const materialized$ = resubscribable$.pipe(materialize());
-
-            return materialized$.pipe(
-                map(
-                    (notification: Notification<Action>): EffectNotification => ({
-                        effect: sourceInstance[propertyName],
-                        notification,
-                        propertyName,
-                        sourceName,
-                        sourceInstance,
-                    })
-                )
-            );
-        }
-    );
-
-    return merge(...observables$);
+  return merge(...observables$);
 }
 
 function resubscribeInCaseOfError<T extends Action>(
-    observable$: Observable<T>,
-    errorHandler?: ErrorHandler
+  observable$: Observable<T>,
+  errorHandler?: ErrorHandler
 ): Observable<T> {
-    return observable$.pipe(
-        catchError(error => {
-            if (errorHandler) errorHandler.handleError(error);
-            // Return observable that produces this particular effect
-            return resubscribeInCaseOfError(observable$, errorHandler);
-        })
-    );
+  return observable$.pipe(
+    catchError(error => {
+      if (errorHandler) errorHandler.handleError(error);
+      // Return observable that produces this particular effect
+      return resubscribeInCaseOfError(observable$, errorHandler);
+    })
+  );
 }

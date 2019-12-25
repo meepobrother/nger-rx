@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { EffectNotification } from '.';
-import { Action } from '@nger/rx.store';
+import { Action } from '@nger/rx-store';
 
 /**
  * @description
@@ -27,15 +27,15 @@ import { Action } from '@nger/rx.store';
  * ```
  */
 export interface OnIdentifyEffects {
-    /**
-     * @description
-     * String identifier to differentiate effect instances.
-     */
-    ngrxOnIdentifyEffects(): string;
+  /**
+   * @description
+   * String identifier to differentiate effect instances.
+   */
+  ngrxOnIdentifyEffects(): string;
 }
 
 export const onIdentifyEffectsKey: keyof OnIdentifyEffects =
-    'ngrxOnIdentifyEffects';
+  'ngrxOnIdentifyEffects';
 
 /**
  * @description
@@ -65,13 +65,13 @@ export const onIdentifyEffectsKey: keyof OnIdentifyEffects =
  * ```
  */
 export interface OnRunEffects {
-    /**
-     * @description
-     * Method to control the lifecycle of effects.
-     */
-    ngrxOnRunEffects(
-        resolvedEffects$: Observable<EffectNotification>
-    ): Observable<EffectNotification>;
+  /**
+   * @description
+   * Method to control the lifecycle of effects.
+   */
+  ngrxOnRunEffects(
+    resolvedEffects$: Observable<EffectNotification>
+  ): Observable<EffectNotification>;
 }
 
 export const onRunEffectsKey: keyof OnRunEffects = 'ngrxOnRunEffects';
@@ -97,11 +97,11 @@ export const onRunEffectsKey: keyof OnRunEffects = 'ngrxOnRunEffects';
  * ```
  */
 export interface OnInitEffects {
-    /**
-     * @description
-     * Action to be dispatched after the effect is registered.
-     */
-    ngrxOnInitEffects(): Action;
+  /**
+   * @description
+   * Action to be dispatched after the effect is registered.
+   */
+  ngrxOnInitEffects(): Action;
 }
 
 export const onInitEffects: keyof OnInitEffects = 'ngrxOnInitEffects';

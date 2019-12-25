@@ -1,5 +1,5 @@
 {
-    "name": "@nger/effects",
+    "name": "@nger/rx-effects",
     "version": "1.1.13",
     "description": "> TODO: description",
     "author": "imeepos <1037483576@qq.com>",
@@ -29,8 +29,7 @@
         "url": "https://github.com/meepobrother/nger-rx/issues"
     },
     "dependencies": {
-        "@nger/core": "^1.8.42",
-        "@nger/store": "^1.1.13",
+        "@nger/rx-store": "^1.1.19",
         "rxjs": "^6.5.3"
     }
 }
