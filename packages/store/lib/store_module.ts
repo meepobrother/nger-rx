@@ -51,8 +51,14 @@ import {
 import { STATE_PROVIDERS } from './state';
 import { STORE_PROVIDERS, Store } from './store';
 import { provideRuntimeChecks } from './runtime_checks';
+import { reducerProvider, caseProvider } from './handlers';
 
-@NgModule({})
+@NgModule({
+    providers: [
+        reducerProvider,
+        caseProvider
+    ]
+})
 export class StoreRootModule {
     constructor(
         actions$: ActionsSubject,
@@ -247,7 +253,7 @@ export function _createStoreReducers(
     injector: Injector,
     reducers: ActionReducerMap<any, any>
 ) {
-    return reducers instanceof InjectionToken ? injector.get(reducers) : reducers;
+    return reducers instanceof InjectionToken ? injector.get(reducers, {}) : reducers;
 }
 
 export function _createFeatureStore(

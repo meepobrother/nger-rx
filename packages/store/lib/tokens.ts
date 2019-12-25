@@ -1,5 +1,5 @@
 import { InjectionToken } from '@nger/core';
-import { RuntimeChecks, MetaReducer } from './models';
+import { RuntimeChecks, MetaReducer, ActionReducerMap, Action } from './models';
 
 export const _ROOT_STORE_GUARD = new InjectionToken<void>(
     '@ngrx/store Internal Root Guard'
@@ -86,3 +86,9 @@ export const _USER_RUNTIME_CHECKS = new InjectionToken<RuntimeChecks>(
 export const _ACTIVE_RUNTIME_CHECKS = new InjectionToken<RuntimeChecks>(
     '@ngrx/store Internal Runtime Checks'
 );
+
+
+/**
+ * router action reducer map
+ */
+export const REDUCERS = new InjectionToken<ActionReducerMap<unknown, Action>[]>(`e@nger/core REDUCERS`);

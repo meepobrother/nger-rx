@@ -54,3 +54,7 @@ export {
     StoreConfig,
 } from './store_module';
 export { On, on, createReducer } from './reducer_creator';
+
+export * from './decorators';
+
+export { REDUCERS } from './tokens';
