@@ -124,7 +124,7 @@ export class StoreModule {
                 {
                     provide: _ROOT_STORE_GUARD,
                     useFactory: _provideForRootGuard,
-                    deps: [[Store, new Optional(), new SkipSelf()]],
+                    deps: [[Store, new Optional(), new SkipSelf()], Injector],
                 },
                 { provide: _INITIAL_STATE, useValue: config.initialState },
                 {
@@ -312,8 +312,9 @@ export function _concatMetaReducers(
     return metaReducers.concat(userProvidedMetaReducers);
 }
 
-export function _provideForRootGuard(store: Store<any>): any {
+export function _provideForRootGuard(store: Store<any>, injector: Injector): any {
     if (store) {
+        debugger;
         throw new TypeError(
             `StoreModule.forRoot() called twice. Feature modules should use StoreModule.forFeature() instead.`
         );

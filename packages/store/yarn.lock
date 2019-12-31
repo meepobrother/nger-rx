@@ -2,12 +2,12 @@
 # yarn lockfile v1
 
 
-"@nger/core@^1.8.54":
-  version "1.8.54"
-  resolved "https://registry.yarnpkg.com/@nger/core/-/core-1.8.54.tgz#bf1f6e0492f9c1fdf98110b6f8d2d4e743000007"
-  integrity sha512-DhfCzeZ1fm1EMJjiHTIf47WNGqxR7iUth9V+IP7cTtnmlh8wL9wTJf98oslRO0dgX3HXP1WjzwDD762UR0ZnTw==
+"@nger/core@^1.9.12":
+  version "1.9.12"
+  resolved "http://10.0.0.202:9008/@nger%2fcore/-/core-1.9.12.tgz#d3ec553c784e9104f9ac89d2153dc3d0031d6840"
+  integrity sha512-7EGvbCjTcM7kJTUDFzN/c+KrPwzEO+XlDGTzUYQ0RGiKfZ4obg2LuO5/DC5TxIm5CYAFc71sXPkU6zjoO1W7sg==
   dependencies:
-    "@nger/di" "^1.5.28"
+    "@nger/di" "^1.5.46"
     rxjs "^6.5.3"
 
 "@nger/decorator@^1.1.12":
@@ -17,10 +17,10 @@
   dependencies:
     reflect-metadata "^0.1.13"
 
-"@nger/di@^1.5.28":
-  version "1.5.28"
-  resolved "https://registry.yarnpkg.com/@nger/di/-/di-1.5.28.tgz#f5f1e195f5b5240ecbca02d44f816aaa6edbc50b"
-  integrity sha512-ZrtvxOlvT38lxmhz8wPh3/QmvzQGsvlAWjayeYTVq7dsS1LckjxhAnggMypftZgQUruTL3oO0ykbAzXO+I2JSA==
+"@nger/di@^1.5.46":
+  version "1.5.48"
+  resolved "http://10.0.0.202:9008/@nger%2fdi/-/di-1.5.48.tgz#c06f8412a3df67a7282bbbc5a08a01662026f595"
+  integrity sha1-wG+EEqPfZ6coK7vFoIoBZiAm9ZU=
   dependencies:
     "@nger/decorator" "^1.1.12"
 
